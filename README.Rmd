@@ -2,4 +2,4 @@
 output: github_document
 ---
 
-<img src="figures/Swiss_family_robinson.jpg"  />
+![](figures/Swiss_family_robinson.jpg){height="50%"}

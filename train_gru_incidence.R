@@ -7,6 +7,8 @@ library(patchwork)
 # Load functions
 source("R/utils.R")
 
+set.seed(123)
+
 # Data -------------------------------------------------------------------------
 # Raw data
 data_raw <- readRDS("data/data_large.RDS") 
@@ -92,7 +94,7 @@ model <- net |>
   )|>
   set_hparams(
     d_in = 1,
-    d_hidden = 15,
+    d_hidden = 20,
     n_layers = 1
   )  |>
   set_opt_hparams(

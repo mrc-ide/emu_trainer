@@ -1,0 +1,5 @@
+---
+output: github_document
+---
+
+<img src="figures/Swiss_family_robinson.jpg"  />

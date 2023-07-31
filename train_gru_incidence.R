@@ -7,14 +7,14 @@ library(patchwork)
 # Load functions
 source("R/utils.R")
 
-set.seed(123)
+set.seed(123321)
 
 # Data -------------------------------------------------------------------------
 # Raw data
 data_raw <- readRDS("data/data_large.RDS") 
 
-transform_ccc <- min_max_tf(data_raw$ccc)
-transform_clinical <- min_max_tf(data_raw$clinical)
+transform_ccc <- sqrt_min_max_tf(data_raw$ccc)
+transform_clinical <- sqrt_min_max_tf(data_raw$clinical)
 
 data <- data_raw |>
   mutate(id = paste(name, "_", eir)) |>
@@ -94,7 +94,7 @@ model <- net |>
   )|>
   set_hparams(
     d_in = 1,
-    d_hidden = 20,
+    d_hidden = 10,
     n_layers = 1
   )  |>
   set_opt_hparams(
@@ -202,7 +202,7 @@ for(i in seq_along(ids)){
   test_fit_plots[[i]] <- p
 }
 
-pdf("gru_incidence_timeseries_plot.pdf", onefile = TRUE)
+pdf("figures/gru_incidence_timeseries_plot.pdf", onefile = TRUE)
 i <- 1
 while(i < length(test_fit_plots)) {
   print(wrap_plots(test_fit_plots[i:(i + 5)], ncol = 2))
@@ -214,5 +214,5 @@ dev.off()
 # Save the model
 save_model <- FALSE
 if(save_model){
-  luz_save(fitted, "models/gru_incidence_hidden15_leakyrelu0.01.rds")
+  luz_save(fitted, "models/gru_sqrt_incidence_hidden15_leakyrelu0.01.rds")
 }
